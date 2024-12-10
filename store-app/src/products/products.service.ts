@@ -4,6 +4,7 @@ import { isValidObjectId, Model } from 'mongoose';
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 
 
@@ -27,8 +28,16 @@ export class ProductsService {
     }
   }
 
-  findAll() {
+  findAll(paginationDto: PaginationDto) {
+    const { limit = 10, offset = 0 } = paginationDto
     return this.productModel.find()
+
+      .limit(limit)
+      .skip(offset)
+      .sort({
+        name: 1
+      })
+      .select('-__v')
   }
 
   async findOne(id: string) {
@@ -66,8 +75,15 @@ export class ProductsService {
   }
 
   async remove(id: string) {
-    const product = await this.findOne(id)
-    await product.deleteOne()
+    //const product = await this.findOne(id)
+    //await product.deleteOne()
+    //return
+
+    const { deletedCount } = await this.productModel.deleteOne({ _id: id })
+    if (deletedCount === 0) {
+      throw new BadRequestException(`Product con id "${id}" not foud`)
+    }
+    return
 
   }
 
