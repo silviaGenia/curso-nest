@@ -33,5 +33,8 @@ export class User extends Document {
     type: [String], default: ['user']
   })
   rol: [string]
+  //(One-to-Many)
+  @Prop({ type: [{ type: String, ref: 'Product' }], default: [] })
+  products: string[]
 }
 export const UserSchema = SchemaFactory.createForClass(User)

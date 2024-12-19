@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 
 @Schema()
 export class Product extends Document {
@@ -27,6 +27,10 @@ export class Product extends Document {
   })
   price: number
   tags: [string] //imag
+
+  //Referencia User
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  user_id: Types.ObjectId
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product)

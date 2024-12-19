@@ -6,6 +6,7 @@ import { SuppliesModule } from './supplies/supplies.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProvidesModule } from './provides/provides.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
@@ -16,7 +17,10 @@ import { AuthModule } from './auth/auth.module';
     SuppliesModule,
     CategoriesModule,
     ProvidesModule,
-    AuthModule //supermercadodb
+    AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true
+    })
   ],
   controllers: [],
   providers: [],

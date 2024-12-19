@@ -1,5 +1,5 @@
 import { Type } from "class-transformer"
-import { IsArray, IsDate, IsInt, IsNumber, IsPositive, IsString, Min, MinLength } from "class-validator"
+import { IsArray, IsDate, IsInt, IsMongoId, IsNumber, IsPositive, IsString, Min, MinLength } from "class-validator"
 
 export class CreateProductDto {
   @IsString()
@@ -21,4 +21,8 @@ export class CreateProductDto {
   @IsArray()
   @IsString({ each: true })
   tags: string[]
+
+  //user_id
+  @IsMongoId()
+  user_id: string
 }
