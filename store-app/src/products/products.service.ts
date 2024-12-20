@@ -5,6 +5,8 @@ import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { User } from 'src/auth/entities/user.entity'
+
 
 
 
@@ -17,8 +19,9 @@ export class ProductsService {
   ) { }
 
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto, user: User) {
     createProductDto.name = createProductDto.name.toLocaleLowerCase()
+    createProductDto.user_id = user.id
 
     try {
       const product = await this.productModel.create(createProductDto)
