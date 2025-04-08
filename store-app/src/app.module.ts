@@ -8,21 +8,22 @@ import { ProvidesModule } from './provides/provides.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 
-
 @Module({
   imports: [
     ProductsModule,
-    MongooseModule.forRoot('mongodb://genia:Producto12@localhost:27017/supermercadodb'),
+    MongooseModule.forRoot(
+      'mongodb://ggary:storeApp12@localhost:27017/supermercadodb',
+    ),
     CommonModule,
     SuppliesModule,
     CategoriesModule,
     ProvidesModule,
     AuthModule,
     ConfigModule.forRoot({
-      isGlobal: true
-    })
+      isGlobal: true,
+    }),
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

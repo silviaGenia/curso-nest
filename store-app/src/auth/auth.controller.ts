@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -10,10 +19,9 @@ import { User } from './entities/user.entity';
 import { ValidRoles } from './interfaces/valid-roles';
 import { Auth } from './decorators/auth.decorator';
 
-
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   createUser(@Body() createUserDto: CreateUserDto) {
@@ -25,13 +33,21 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
+  @Get('public')
+  testingPublicRouter() {
+    return {
+      ok: true,
+      message: 'Ruta publica para prueba',
+    };
+  }
+
   @Get('private')
   @UseGuards(AuthGuard())
   testingPrivateRouter() {
     return {
       ok: true,
-      message: "Ruta Privada"
-    }
+      message: 'Ruta Privada',
+    };
   }
 
   @Get('private2')
@@ -40,8 +56,8 @@ export class AuthController {
   privateRoute2(@GetUser() user: User) {
     return {
       ok: true,
-      user
-    }
+      user,
+    };
   }
 
   @Get('private3')
@@ -49,9 +65,7 @@ export class AuthController {
   privateRoute3(@GetUser() user: User) {
     return {
       ok: true,
-      user
-    }
+      user,
+    };
   }
-
-
 }

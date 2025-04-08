@@ -1,40 +1,42 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 @Schema({
   toJSON: {
     transform: (doc, ret) => {
-      delete ret.password
-      return ret
-    }
-  }
+      delete ret.password;
+      return ret;
+    },
+  },
 })
 export class User extends Document {
   @Prop({
     required: true,
-    unique: true
+    unique: true,
   })
-  fullName: string
+  fullName: string;
   @Prop({
     required: true,
-    select: false
+    select: false,
   })
-  password: string
+  password: string;
   @Prop({
     required: true,
-    unique: true
+    unique: true,
   })
-  email: string
+  email: string;
   @Prop({
-    default: true
+    default: true,
   })
-  isActive: boolean
+  isActive: boolean;
   @Prop({
-    type: [String], default: ['user']
+    type: [String],
+    default: ['user'],
   })
-  rol: [string]
+  rol: [string];
   //(One-to-Many)
   @Prop({ type: [{ type: String, ref: 'Product' }], default: [] })
-  products: string[]
+  products: string[];
 }
-export const UserSchema = SchemaFactory.createForClass(User)
+export const UserSchema = SchemaFactory.createForClass(User);
+
