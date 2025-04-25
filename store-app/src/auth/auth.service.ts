@@ -42,7 +42,7 @@ export class AuthService {
     const { email, password } = loginUserDto;
     const user = await this.userModel
       .findOne({ email })
-      .select('email password');
+      .select('email password fullName rol'); // MODIFICADO
     if (!user)
       throw new UnauthorizedException(
         'Las Credenciales no son validas (email)',
@@ -52,9 +52,11 @@ export class AuthService {
       throw new UnauthorizedException(
         'Las Credenciales no son validas (password)',
       );
+
     return {
       email: user.email,
-      password: user.password,
+      fullName: user.fullName,
+      rol: user.rol,
       token: this.getJwtToken({ email: user.email }),
     };
   }
